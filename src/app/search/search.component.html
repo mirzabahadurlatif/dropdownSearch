@@ -1,0 +1,51 @@
+<div class="input-field table-filters d-flex flex-column justify-content-between align-items-center" (click)="$event.stopPropagation();">
+    <div class="d-flex flex-column w-100">
+        <ng-container *ngFor="let item of filterProps">
+            <div class="input-field w-100" *ngIf="item.type == 'select'">
+                <div class="field-label">
+                    {{item.label}}
+                </div>
+                <mat-form-field appearance="outline" class="w-100 filter">
+                    <mat-icon matSuffix class="filter-icon text-blue-700" (click)="clearSelection($event, item)" *ngIf="item.value">clear</mat-icon>
+                    <mat-select [placeholder]="item.placeholder" [(ngModel)]="item.value" panelClass="mat-select-panel-option">
+                        <input #searchInput (input)="filterOptions(searchInput.value,item)" [placeholder]="'Find '+item.placeholder"
+                        style="height: 40px;padding-inline: 16px;width: 100%;border: none;padding-bottom: 8px;outline: none;">
+                        <mat-option *ngIf="item.filteredOptions?.length == 0 || !item.filteredOptions" [value]="null">No Results Found</mat-option>
+                        <mat-option  class="hover:text-blue-700"  *ngFor="let option of item.filteredOptions" [value]="option.id">{{ option.name }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="input-field w-100" *ngIf="item.type == 'select-dependent'">
+                <div class="field-label">
+                    {{item.label}}
+                </div>
+                <mat-form-field appearance="outline" class="w-100 filter"> 
+                    <mat-icon matSuffix class="filter-icon  text-blue-700" (click)="clearSelection($event, item)" *ngIf="item.value">clear</mat-icon>
+                    <mat-select [placeholder]="item.placeholder" [(ngModel)]="item.value" panelClass="mat-select-panel-option"
+                    (selectionChange)="onSelectFilter($event.value,item.key)">
+                        <input #searchInput (input)="filterOptions(searchInput.value,item)" [placeholder]="'Find '+item.placeholder"
+                        style="height: 40px;padding-inline: 16px;width: 100%;border: none;padding-bottom: 8px;outline: none;">
+                        <mat-option *ngIf="item.filteredOptions?.length == 0 || !item.filteredOptions" [value]="null">No Results Found</mat-option>
+                        <mat-option  class="hover:text-blue-700" *ngFor="let option of item.filteredOptions" [value]="option.id">{{ option.name }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="input-field w-100" *ngIf="item.type == 'multi-select-dependent'">
+              <div class="field-label">
+                  {{item.label}}
+              </div>
+              <mat-form-field appearance="outline" class="w-100 filter">
+                  <mat-icon matSuffix class="filter-icon  text-blue-700" (click)="clearSelection($event, item)" *ngIf="item.value">clear</mat-icon>
+                  <mat-select [placeholder]="item.placeholder" [(ngModel)]="item.value" panelClass="mat-select-panel-option"
+                  (selectionChange)="onSelectFilter($event.value,item.key)" multiple>
+                      <input #searchInput (input)="filterOptions(searchInput.value,item)" [placeholder]="'Find '+item.placeholder"
+                      style="height: 40px;padding-inline: 16px;width: 100%;border: none;padding-bottom: 8px;outline: none;">
+                      <mat-option *ngIf="item.filteredOptions?.length == 0 || !item.filteredOptions" [value]="null">No Results Found</mat-option>
+                      <mat-option   class="hover:text-blue-700"  *ngFor="let option of item.filteredOptions" [value]="option.id">{{ option.name }}</mat-option>
+                  </mat-select>
+              </mat-form-field>
+            </div>
+         
+        </ng-container>
+    </div>
+</div>
