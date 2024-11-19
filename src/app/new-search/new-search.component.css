@@ -23,7 +23,9 @@
   /* padding: 4px 0; */
   z-index: 2;
   max-height: 200px;
+  width: 250px;
   border-radius: 10px;
+  margin-left: -15px;
   overflow-y: auto;
 }
 

@@ -3,16 +3,19 @@ import { FormsModule } from '@angular/forms';
 import { Component, Input, TemplateRef, ViewChild, ViewContainerRef, EventEmitter, Output } from '@angular/core';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
+import {MatListModule} from '@angular/material/list';
+import {MatButtonModule} from '@angular/material/button';
+
 
 @Component({
   selector: 'app-new-search',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,MatListModule,MatButtonModule],
   templateUrl: './new-search.component.html',
   styleUrl: './new-search.component.css'
 })
 export class NewSearchComponent {
-  @Input() options: string[] = [];
+  @Input() options!: any[];
   @Input() placeholder: string = 'Select';
   @Output() onSelectDependentFitler: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('dropdownTemplate') dropdownTemplate!: TemplateRef<any>;
@@ -20,13 +23,14 @@ export class NewSearchComponent {
   selectedValue: string | null = null;
   ClearSelect: boolean = false;
   searchQuery: string = '';
-  filteredOptions: string[] = [];
+  filterOption: any[] = [];
+
   overlayRef!: OverlayRef;
 
   constructor(private overlay: Overlay, private vcr: ViewContainerRef) { }
 
   ngOnInit() {
-    this.filteredOptions = [...this.options];
+    // this.filteredOptions = [...this.options];
   }
 
   toggleDropdown() {
@@ -36,7 +40,9 @@ export class NewSearchComponent {
       this.openDropdown();
     }
   }
-
+  onOK(selected:any){
+    console.log(selected)
+  }
 
   openDropdown() {
     const positionStrategy = this.overlay
@@ -86,9 +92,9 @@ export class NewSearchComponent {
     this.selectOption(this.selectedValue!);
   }
 
-  filterOptions(query: string) {
-    this.filteredOptions = this.options.filter(option =>
-      option.toLowerCase().includes(query.toLowerCase())
+  filterOptions(query: string) {  
+    this.filterOption = this.options[0].filteredOptions.filter((option:any) =>
+      option.name.toLowerCase().includes(query.toLowerCase())
     );
   }
 }

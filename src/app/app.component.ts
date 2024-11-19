@@ -20,11 +20,59 @@ import { NewSearchComponent } from './new-search/new-search.component';
 })
 export class AppComponent 
 {
-  opetions:any[]=['Option 222222222222222221', 'Option 2', 'Option 3',
-    'Option 1', 'Option 2', 'Option 3',
-    'Option 1', 'Option 2', 'Option 3',
-    'Option 1', 'Option 2', 'Option 3',
-    'Option 1', 'Option 2', 'Option 3'
+  opetions:any[]=[
+
+          {
+          type: 'multi-select-dependent',
+          label: 'Student',
+          placeholder: 'Student',
+          optionsArray: [
+ 
+            { id: 'new', name: 'New' },
+            { id: 'old', name: 'Old' },
+ 
+          ],
+          filteredOptions: [
+ 
+            { id: 'new', name: 'New' },
+            { id: 'old', name: 'Old' },
+            { id: 'new', name: 'New' },
+            { id: 'old', name: 'Old' },
+            { id: 'new', name: 'New' },
+            { id: 'old', name: 'Old' },
+            { id: 'new', name: 'New' },
+            { id: 'old', name: 'Old' },
+            { id: 'new', name: 'New' },
+            { id: 'old', name: 'Old' },
+            { id: 'new', name: 'New' },
+            { id: 'old', name: 'Old' },
+            { id: 'new', name: 'New' },
+            { id: 'old', name: 'Old' },
+            { id: 'new', name: 'New' },
+            { id: 'old', name: 'Old' },
+            { id: 'new', name: 'New' },
+            { id: 'old', name: 'Old' },
+            { id: 'new', name: 'New' },
+            { id: 'old', name: 'Old' },
+ 
+          ],
+          key: 'model',
+          value: null,
+        },
+  //     {
+  //     'data':[
+  //     { id: 'new', name: 'New' },
+  //     { id: 'old', name: 'Old' },
+  //     { id: 'new', name: 'New' },
+  //     { id: 'old', name: 'Old' },
+  //     { id: 'new', name: 'New' },
+  //     { id: 'old', name: 'Old' },
+  //     { id: 'new', name: 'New' },
+  //     { id: 'old', name: 'Old' }
+  //   ]
+  // }
+
+
   ];
  
     constructor(protected router: Router)
