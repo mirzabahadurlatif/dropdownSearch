@@ -1,0 +1,40 @@
+<div class="selector-container">
+    <div class="selector-trigger">
+        <div (click)="toggleDropdown()" (mouseenter)="toggleDropdown()" class="cursor-pointer w-full flex flex-row align-middle justify-between">
+            {{ (selectedValue || placeholder).length > 10 ? (selectedValue || placeholder).slice(0, 10) + '...' :
+            selectedValue || placeholder }}
+            <span class="cursor-pointer text-gray-400">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="24" fill="currentColor"
+                    class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                    <path
+                        d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                </svg>
+            </span>
+        </div>
+
+        <span *ngIf="ClearSelect" class="ml-4 text-blue-600 cursor-pointer font-extrabold" (click)="clearSelect()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-x"
+                viewBox="0 0 16 16">
+                <path
+                    d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
+            </svg>
+        </span>
+    </div>
+
+    <ng-template #dropdownTemplate>
+     
+        <div class="selector-dropdown">
+
+            <input type="text" class="search-input" placeholder="Search..." [(ngModel)]="searchQuery"
+            (ngModelChange)="filterOptions(searchQuery)" />
+            
+            <div class="selector-option" *ngFor="let option of filteredOptions" (click)="selectOption(option)">
+                {{ option }}
+            </div>
+            
+            <div *ngIf="filteredOptions.length === 0" class="no-results">
+                No Results Found
+            </div>
+        </div>
+    </ng-template>
+</div>

@@ -1,7 +1,6 @@
 
 
-
-<div class="flex align-middle justify-center self-center mt-20">
-<app-search [filterProps]="dynamicFilterArray" (onEmitFilters)="onChangeFiltersDynamic($event)"
-(onSelectDependentFitler)="onDependentFitler($event)" (clearDependentFitler)="onClearFilter($event)"></app-search>
+<div class="flex align-middle justify-center self-center pt-4">
+    <app-new-search [options]="opetions" 
+    (onSelectDependentFitler)="onDependentFitler($event)" ></app-new-search>
 </div>

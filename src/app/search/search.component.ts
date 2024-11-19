@@ -9,6 +9,15 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 
+import {
+  TemplateRef,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
+import { Overlay, OverlayRef } from '@angular/cdk/overlay';
+import { TemplatePortal } from '@angular/cdk/portal';
+
+
 @Component({
   selector: 'app-search',
   standalone: true,
@@ -32,7 +41,12 @@ export class SearchComponent  implements OnInit {
     date:any;
     dateConfig:any;
   
-    constructor(
+    @ViewChild('dropdownTemplate') dropdownTemplate!: TemplateRef<any>;
+
+    selectedValue: string | null = null;
+    overlayRef!: OverlayRef;
+
+    constructor( private overlay: Overlay, private vcr: ViewContainerRef
     ) {
       this.dateConfig = {
         placeholder: '',
@@ -43,6 +57,47 @@ export class SearchComponent  implements OnInit {
     ngOnInit(): void {
     
     }
+
+    
+  toggleDropdown() {
+    if (this.overlayRef) {
+      this.closeDropdown();
+    } else {
+      this.openDropdown();
+    }
+  }
+
+   openDropdown() {
+    const positionStrategy = this.overlay
+      .position()
+      .flexibleConnectedTo(document.querySelector('.selector-trigger')!)
+      .withPositions([
+        {
+          originX: 'start',
+          originY: 'bottom',
+          overlayX: 'start',
+          overlayY: 'top',
+        },
+      ]);
+
+    this.overlayRef = this.overlay.create({
+      positionStrategy,
+      hasBackdrop: true,
+      backdropClass: 'cdk-overlay-transparent-backdrop',
+    });
+
+    const portal = new TemplatePortal(this.dropdownTemplate, this.vcr);
+    this.overlayRef.attach(portal);
+
+    this.overlayRef.backdropClick().subscribe(() => this.closeDropdown());
+  }
+
+  closeDropdown() {
+    if (this.overlayRef) {
+      this.overlayRef.dispose();
+      this.overlayRef = null!;
+    }
+  }
   
     filterOptions(searchTerm: any,item:any) {
       item.filteredOptions = item.options.filter((option:any) =>
