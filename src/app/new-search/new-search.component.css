@@ -18,16 +18,17 @@
 .selector-dropdown {
   background: white;
   color:  gray;
-  border: 1px solid #ccc;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  /* border: 1px solid #ccc; */
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
   /* padding: 4px 0; */
   z-index: 2;
-  max-height: 200px;
-  width: 250px;
-  border-radius: 10px;
+  max-height: 250px;
+  width: 300px;
+  border-radius: 8px;
   margin-left: -15px;
   overflow-y: auto;
 }
+
 
 .search-input {
   top: 0;
@@ -40,6 +41,15 @@
   color: gray;
   border-bottom: solid gray 0.25px;
   outline: none;
+}
+
+.action-btn {
+  background: white;
+  color:  gray;
+  z-index: 2;
+  max-height: 250px;
+  width: 300px;
+
 }
 
 .selector-option {

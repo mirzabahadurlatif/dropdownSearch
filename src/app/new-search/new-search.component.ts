@@ -24,6 +24,7 @@ export class NewSearchComponent {
   ClearSelect: boolean = false;
   searchQuery: string = '';
   filterOption: any[] = [];
+  selectedOptions: any[] = [];
 
   overlayRef!: OverlayRef;
 
@@ -40,10 +41,19 @@ export class NewSearchComponent {
       this.openDropdown();
     }
   }
-  onOK(selected:any){
-    console.log(selected)
+  onOK(){
+    this.selectedValue=this.searchQuery
+    this.closeDropdown();
   }
-
+onSelectionChange(event: any) {
+    this.selectedOptions = event.source.selectedOptions.selected;
+    this.searchQuery=''
+    this.selectedOptions.forEach(element => {
+      
+      this.searchQuery+=this.filterOption.filter((item)=>item.id==element._value)[0].name+','
+    });
+    console.log(this.searchQuery);
+  }
   openDropdown() {
     const positionStrategy = this.overlay
       .position()
@@ -85,13 +95,18 @@ export class NewSearchComponent {
     this.onSelectDependentFitler.next(option);
     this.closeDropdown();
   }
-
+  onCancel(){
+    this.selectedValue=''
+    this.closeDropdown();
+  }
   clearSelect() {
     this.selectedValue = null
     this.ClearSelect = false;
     this.selectOption(this.selectedValue!);
   }
-
+  isSelected(nameCheck:any):boolean{
+    return this.selectedValue?.includes(nameCheck)?true:false
+  }
   filterOptions(query: string) {  
     this.filterOption = this.options[0].filteredOptions.filter((option:any) =>
       option.name.toLowerCase().includes(query.toLowerCase())
