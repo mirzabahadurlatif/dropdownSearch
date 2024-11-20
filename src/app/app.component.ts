@@ -23,13 +23,18 @@ export class AppComponent
   opetions:any[]=[
 
           {
-          type: 'multi-select-dependent',
+          type: 'select-dependent',
           label: 'Student',
           placeholder: 'Student',
           optionsArray: [
  
-            { id: 'new', name: 'New' },
-            { id: 'old', name: 'Old' },
+            { id: '1', name: 'Ali',experience:'2 Year' },
+            { id: '2', name: 'Tahir',experience:'5 Year' },
+            { id: '3', name: 'Shahid',experience:'1 Year' },
+            { id: '4', name: 'Usama',experience:'7 Year' },
+            { id: '5', name: 'Haseeb',experience:'10 Year' },
+            { id: '6', name: 'Omar',experience:'4 Year' },
+            { id: '7', name: 'Alia',experience:'3 Year' },
  
           ],
           filteredOptions: [
@@ -173,6 +178,6 @@ export class AppComponent
 
     onDependentFitler(evt:any){
         console.log(evt)
-        alert(evt);
+        // alert(evt);
     }
 }

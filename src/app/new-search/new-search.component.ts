@@ -27,33 +27,68 @@ export class NewSearchComponent {
   selectedOptions: any[] = [];
 
   overlayRef!: OverlayRef;
-
+  checkboxArray:any[]=[];
   constructor(private overlay: Overlay, private vcr: ViewContainerRef) { }
 
   ngOnInit() {
     this.filterOption = [...this.options[0].filteredOptions];
+    this.filterOption.forEach((item)=>{
+      this.checkboxArray.push({flag:false,element:item})
+    })
+
+  }
+  onListClick(id:any){
+    this.checkboxArray.forEach((element,index) => {
+      if(element.element.id==id){
+        this.checkboxArray[index].flag=!this.checkboxArray[index].flag
+      }
+    });
   }
 
   toggleDropdown() {
     if (this.overlayRef) {
       this.closeDropdown();
     } else {
+
+      this.checkboxArray.forEach((element,index) => {
+        this.checkboxArray[index].flag=false
+      });
+
+      if(this.seletedArray){
+        this.seletedArray.forEach((element:any,index:any) => {
+          this.checkboxArray.find((item)=>item.element.name==element)?this.checkboxArray.find((item)=>item.element.name==element).flag=true:null
+        //  this.checkboxArray.forEach((item,index) => {
+        //   if(item.element.name==element){
+        //     this.checkboxArray[index].flag=true
+        //   }
+        //  });
+
+        });
+      }
       this.openDropdown();
     }
   }
+  seletedArray:any;
   onOK(){
-    this.selectedValue=this.searchQuery
+    // this.selectedValue=this.dropdownSelect
+    // if(this.selectedValue){
+    //   this.onSelectDependentFitler.next(this.selectedValue);
+    // }
+    
+    this.selectedValue=''
+    this.checkboxArray.forEach(element => {
+      if(element.flag){
+        this.selectedValue+=element.element.name+','
+      }
+    });
+    this.seletedArray=this.selectedValue?.split(',')
+    console.log("sleted ARRaay",this.seletedArray)
     this.closeDropdown();
   }
-onSelectionChange(event: any) {
-    this.selectedOptions = event.source.selectedOptions.selected;
-    this.searchQuery=''
-    this.selectedOptions.forEach(element => {
-      
-      this.searchQuery+=this.filterOption.filter((item)=>item.id==element._value)[0].name+','
-    });
-    console.log(this.searchQuery);
-  }
+
+  dropdownSelect:any;
+
+
   openDropdown() {
     const positionStrategy = this.overlay
       .position()
@@ -84,7 +119,8 @@ onSelectionChange(event: any) {
       this.overlayRef.dispose();
       this.overlayRef = null!;
     }
-    this.filterOptions(this.searchQuery = '');
+    // this.filterOptions(this.searchQuery = '');
+    
   }
 
   selectOption(option: string) {
@@ -96,20 +132,23 @@ onSelectionChange(event: any) {
     this.closeDropdown();
   }
   onCancel(){
-    this.selectedValue=''
     this.closeDropdown();
   }
   clearSelect() {
     this.selectedValue = null
     this.ClearSelect = false;
-    this.selectOption(this.selectedValue!);
+    this.checkboxArray.forEach((element,index) => {
+      this.checkboxArray[index].flag=false
+    });
+    this.seletedArray=[]
   }
-  isSelected(nameCheck:any):boolean{
-    return this.selectedValue?.includes(nameCheck)?true:false
+  isSelected(nameCheck:any,id:any):boolean{
+
+    return this.checkboxArray.find((item)=>item.element.id==id).flag
   }
   filterOptions(query: string) {  
     this.filterOption = this.options[0].filteredOptions.filter((option:any) =>
-      option.name.toLowerCase().includes(query.toLowerCase())
+      option.name.toLowerCase().includes(query.toLowerCase()) 
     );
   }
 }

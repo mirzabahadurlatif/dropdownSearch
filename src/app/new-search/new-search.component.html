@@ -48,7 +48,7 @@
 <div class="selector-container" *ngIf="options[0].type=='multi-select-dependent'">
     <div class="selector-trigger">
         <div (click)="toggleDropdown()" class="cursor-pointer w-full flex flex-row align-middle justify-between">
-            {{ (selectedValue || placeholder).length > 10 ? (selectedValue || placeholder).slice(0, 10) + '...' :
+            {{ (selectedValue || placeholder).length > 10 ? (selectedValue || placeholder).slice(0, 50) + '...' :
             selectedValue || placeholder }}
             <span class="cursor-pointer text-gray-400">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="24" fill="currentColor"
@@ -70,7 +70,7 @@
 
     <ng-template #dropdownTemplate >
      
-        <div class="selector-dropdown flex flex-col" style="overflow-y:hidden;">
+        <div class="selector-dropdown flex flex-col" style="overflow:hidden;">
             <input type="text" class="search-input" placeholder="Search..." [(ngModel)]="searchQuery"
             (ngModelChange)="filterOptions(searchQuery)" />
         <div class="selector-dropdown" style="margin-left: 0px;">
@@ -79,10 +79,10 @@
             <!-- <div class="selector-option" *ngFor="let option of filteredOptions" (click)="selectOption(option)">
                 {{ option }}
             </div> -->
-            <mat-selection-list #opt (selectionChange)="onSelectionChange($event)">
+            <mat-selection-list #opt>
                 
                 @for (option of filterOption; track option) {
-                  <mat-list-option [value]="option.id" [selected]="isSelected(option.name)">{{option.name}}</mat-list-option>
+                <a (click)="onListClick(option.id)"><mat-list-option  [value]="option.id" [selected]="isSelected(option.name,option.id)">{{option.name}}</mat-list-option></a>  
                 }
                 
             </mat-selection-list>
@@ -91,9 +91,14 @@
                 No Results Found
             </div>
 
-            <div *ngIf="filterOption.length != 0"  class="flex justify-between action-btn">
-                <button mat-flat-button (click)="onCancel()">Cancel</button>
-                <button mat-flat-button (click)="onOK()">OK</button>
+            <div *ngIf="filterOption.length != 0"  class="flex justify-between">
+                <button style="width: 48%;" class= "text-black border-2 rounded-lg font-sans px-12 py-2" (click)="onCancel()">Cancel</button>
+                <button style="width: 48%;" class="bg-blue-600 text-white rounded-lg font-sans px-12 py-2"  (click)="onOK()">OK</button>
+                <!-- <section>
+\                    <div class="example-button-row">
+                      <button mat-flat-button (click)="onOK()">OK</button>
+                    </div>
+                </section> -->
             </div>
 
         </div>
