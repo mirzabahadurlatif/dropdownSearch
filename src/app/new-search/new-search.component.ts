@@ -31,7 +31,7 @@ export class NewSearchComponent {
   constructor(private overlay: Overlay, private vcr: ViewContainerRef) { }
 
   ngOnInit() {
-    // this.filteredOptions = [...this.options];
+    this.filterOption = [...this.options[0].filteredOptions];
   }
 
   toggleDropdown() {
