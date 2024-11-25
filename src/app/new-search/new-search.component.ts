@@ -5,47 +5,71 @@ import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import {MatListModule} from '@angular/material/list';
 import {MatButtonModule} from '@angular/material/button';
-
+import { DataService } from '../data.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-new-search',
   standalone: true,
-  imports: [CommonModule, FormsModule,MatListModule,MatButtonModule],
+  imports: [CommonModule, FormsModule,MatListModule,MatButtonModule, HttpClientModule],
   templateUrl: './new-search.component.html',
   styleUrl: './new-search.component.css'
 })
 export class NewSearchComponent {
   @Input() options!: any[];
-  @Input() placeholder: string = 'Select';
+  @Input() displayValue !:any;
+  @Input() selectType !:any;
+  @Input() dataType !:any;
+  // @Input() placeholder: string = 'Select';
+
   @Output() onSelectDependentFitler: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('dropdownTemplate') dropdownTemplate!: TemplateRef<any>;
 
-  selectedValue: string | null = null;
+  selectedValue: any = 'Select';
   ClearSelect: boolean = false;
   searchQuery: string = '';
   filterOption: any[] = [];
   selectedOptions: any[] = [];
-
+  placeholder='Select'
   overlayRef!: OverlayRef;
   checkboxArray:any[]=[];
-  constructor(private overlay: Overlay, private vcr: ViewContainerRef) { }
+  constructor(private overlay: Overlay, private vcr: ViewContainerRef,private dataService: DataService) { }
 
   ngOnInit() {
-    this.filterOption = [...this.options[0].filteredOptions];
+
+    this.filterOption = [...this.options];
+
+    // this.dataService.getData().subscribe((response) => {
+    //   this.filterOption=response;
+    //   this.options[0].filteredOptions=response;
+    //   });
+
     this.filterOption.forEach((item)=>{
       this.checkboxArray.push({flag:false,element:item})
-    })
+    });
+
+    console.log("fff",this.filterOption)
+    console.log("ccc",this.checkboxArray)
 
   }
-  onListClick(id:any){
+  onListClick(id:any,indx:number){
+    if(this.dataType=='object'){
     this.checkboxArray.forEach((element,index) => {
       if(element.element.id==id){
         this.checkboxArray[index].flag=!this.checkboxArray[index].flag
       }
     });
+  }else{
+    // this.checkboxArray.forEach((element,index) => {
+    //   if(index==indx){
+    //     this.checkboxArray[index].flag=!this.checkboxArray[index].flag
+    //   }
+    // });
+    this.checkboxArray[indx].flag=!this.checkboxArray[indx].flag
+  }
   }
 
-  toggleDropdown() {
+  toggleDropdown(triggerElement:HTMLElement) {
     if (this.overlayRef) {
       this.closeDropdown();
     } else {
@@ -56,7 +80,7 @@ export class NewSearchComponent {
 
       if(this.seletedArray){
         this.seletedArray.forEach((element:any,index:any) => {
-          this.checkboxArray.find((item)=>item.element.name==element)?this.checkboxArray.find((item)=>item.element.name==element).flag=true:null
+          this.checkboxArray.find((item)=>item.element[this.displayValue]==element)?this.checkboxArray.find((item)=>item.element[this.displayValue]==element).flag=true:null
         //  this.checkboxArray.forEach((item,index) => {
         //   if(item.element.name==element){
         //     this.checkboxArray[index].flag=true
@@ -65,7 +89,7 @@ export class NewSearchComponent {
 
         });
       }
-      this.openDropdown();
+      this.openDropdown(triggerElement);
     }
   }
   seletedArray:any;
@@ -76,11 +100,22 @@ export class NewSearchComponent {
     // }
     
     this.selectedValue=''
+    if(this.dataType=='object'){
     this.checkboxArray.forEach(element => {
       if(element.flag){
-        this.selectedValue+=element.element.name+','
+        this.selectedValue+=element.element[this.displayValue]+','
       }
     });
+  }
+  else{
+    debugger
+    this.checkboxArray.forEach(element => {
+      if(element.flag){
+        this.selectedValue+=element.element+','
+      }
+    });
+  }
+
     this.seletedArray=this.selectedValue?.split(',')
     console.log("sleted ARRaay",this.seletedArray)
     this.closeDropdown();
@@ -89,16 +124,25 @@ export class NewSearchComponent {
   dropdownSelect:any;
 
 
-  openDropdown() {
+  openDropdown(triggerElement:HTMLElement) {
+    
     const positionStrategy = this.overlay
       .position()
-      .flexibleConnectedTo(document.querySelector('.selector-trigger')!)
+      .flexibleConnectedTo(triggerElement)
+      .withFlexibleDimensions(true)
+      .withPush(false)
       .withPositions([
         {
           originX: 'start',
           originY: 'bottom',
           overlayX: 'start',
           overlayY: 'top',
+        },
+        {
+          originX: 'start',
+          originY: 'top',
+          overlayX: 'start',
+          overlayY: 'bottom',
         },
       ]);
 
@@ -135,20 +179,26 @@ export class NewSearchComponent {
     this.closeDropdown();
   }
   clearSelect() {
-    this.selectedValue = null
+    this.selectedValue = 'Select'
     this.ClearSelect = false;
     this.checkboxArray.forEach((element,index) => {
       this.checkboxArray[index].flag=false
     });
     this.seletedArray=[]
   }
-  isSelected(nameCheck:any,id:any):boolean{
+  isSelected(dataItem:any,indx:number):boolean{
 
-    return this.checkboxArray.find((item)=>item.element.id==id).flag
+    return this.dataType=='object'?this.checkboxArray.find((item)=>item.element.id==dataItem.id).flag:this.checkboxArray[indx].flag
   }
   filterOptions(query: string) {  
-    this.filterOption = this.options[0].filteredOptions.filter((option:any) =>
-      option.name.toLowerCase().includes(query.toLowerCase()) 
+    if(this.dataType=='object'){
+    this.filterOption = this.options.filter((option:any) =>
+      option[this.displayValue].toLowerCase().includes(query.toLowerCase()) 
     );
+  }else{
+    this.filterOption = this.options.filter((option:any) =>
+      option.toLowerCase().includes(query.toLowerCase()) 
+    );
+  }
   }
 }

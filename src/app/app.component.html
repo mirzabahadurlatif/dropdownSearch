@@ -1,6 +1,36 @@
 
 
 <div class="flex align-middle justify-center self-center pt-4">
-    <app-new-search [options]="opetions" 
+    <app-new-search 
+    [options]="opetions" 
+    [displayValue]="'experience'"
+    [selectType]="'multi-select'"
+    [dataType]="'object'"
     (onSelectDependentFitler)="onDependentFitler($event)" ></app-new-search>
 </div>
+<div class="flex align-middle justify-center self-center pt-4">
+    <app-new-search 
+    [options]="opetions2" 
+    [displayValue]="'name'"
+    [selectType]="'multi-select'"
+    [dataType]="'object'"
+    (onSelectDependentFitler)="onDependentFitler($event)" ></app-new-search>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>  
+<div class="flex align-middle justify-center self-center pt-4">
+    <app-new-search 
+    [options]="opetions" 
+    [displayValue]="'name'"
+    [selectType]="'single-select'"
+    [dataType]="'object'"
+    (onSelectDependentFitler)="onDependentFitler($event)" ></app-new-search>
+</div>
+
+<!-- <div class="flex align-middle justify-center self-center pt-4">
+    <app-new-search [options]="opetions2" 
+    (onSelectDependentFitler)="onDependentFitler($event)" ></app-new-search>
+</div> -->

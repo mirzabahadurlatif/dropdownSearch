@@ -20,154 +20,81 @@ import { NewSearchComponent } from './new-search/new-search.component';
 })
 export class AppComponent 
 {
+  // opetions:any[]=[
+
+  //         {
+  //         type: 'multi-select-dependent',
+  //         label: 'Student',
+  //         placeholder: 'Student',
+  //         optionsArray: [
+ 
+  //           { id: '1', name: 'Ali',experience:'2 Year' },
+  //           { id: '2', name: 'Tahir',experience:'5 Year' },
+  //           { id: '3', name: 'Shahid',experience:'1 Year' },
+  //           { id: '4', name: 'Usama',experience:'7 Year' },
+  //           { id: '5', name: 'Haseeb',experience:'10 Year' },
+  //           { id: '6', name: 'Omar',experience:'4 Year' },
+  //           { id: '7', name: 'Alia',experience:'3 Year' },
+ 
+  //         ],
+  //         filteredOptions: [
+ 
+  //           { id: '1', name: 'Ali',experience:'2 Year' },
+  //           { id: '2', name: 'Tahir',experience:'5 Year' },
+  //           { id: '3', name: 'Shahid',experience:'1 Year' },
+  //           { id: '4', name: 'Usama',experience:'7 Year' },
+  //           { id: '5', name: 'Haseeb',experience:'10 Year' },
+  //           { id: '6', name: 'Omar',experience:'4 Year' },
+  //           { id: '7', name: 'Alia',experience:'3 Year' },
+ 
+  //         ],
+  //         key: 'model',
+  //         value: null,
+  //       },
+  // //     {
+  // //     'data':[
+  // //     { id: 'new', name: 'New' },
+  // //     { id: 'old', name: 'Old' },
+  // //     { id: 'new', name: 'New' },
+  // //     { id: 'old', name: 'Old' },
+  // //     { id: 'new', name: 'New' },
+  // //     { id: 'old', name: 'Old' },
+  // //     { id: 'new', name: 'New' },
+  // //     { id: 'old', name: 'Old' }
+  // //   ]
+  // // }
+
+
+  // ];
+ 
   opetions:any[]=[
+ 
+    { id: '1', name: 'Ali',experience:'2 Year' },
+    { id: '2', name: 'Tahir',experience:'5 Year' },
+    { id: '3', name: 'Shahid',experience:'1 Year' },
+    { id: '4', name: 'Usama',experience:'7 Year' },
+    { id: '5', name: 'Haseeb',experience:'10 Year' },
+    { id: '6', name: 'Omar',experience:'4 Year' },
+    { id: '7', name: 'Alia',experience:'3 Year' },
 
-          {
-          type: 'select-dependent',
-          label: 'Student',
-          placeholder: 'Student',
-          optionsArray: [
- 
-            { id: '1', name: 'Ali',experience:'2 Year' },
-            { id: '2', name: 'Tahir',experience:'5 Year' },
-            { id: '3', name: 'Shahid',experience:'1 Year' },
-            { id: '4', name: 'Usama',experience:'7 Year' },
-            { id: '5', name: 'Haseeb',experience:'10 Year' },
-            { id: '6', name: 'Omar',experience:'4 Year' },
-            { id: '7', name: 'Alia',experience:'3 Year' },
- 
-          ],
-          filteredOptions: [
- 
-            { id: '1', name: 'Ali',experience:'2 Year' },
-            { id: '2', name: 'Tahir',experience:'5 Year' },
-            { id: '3', name: 'Shahid',experience:'1 Year' },
-            { id: '4', name: 'Usama',experience:'7 Year' },
-            { id: '5', name: 'Haseeb',experience:'10 Year' },
-            { id: '6', name: 'Omar',experience:'4 Year' },
-            { id: '7', name: 'Alia',experience:'3 Year' },
- 
-          ],
-          key: 'model',
-          value: null,
-        },
-  //     {
-  //     'data':[
-  //     { id: 'new', name: 'New' },
-  //     { id: 'old', name: 'Old' },
-  //     { id: 'new', name: 'New' },
-  //     { id: 'old', name: 'Old' },
-  //     { id: 'new', name: 'New' },
-  //     { id: 'old', name: 'Old' },
-  //     { id: 'new', name: 'New' },
-  //     { id: 'old', name: 'Old' }
-  //   ]
-  // }
+  ]
 
-
-  ];
+  opetions2:any[]=[
  
+    { id: '1', name: 'Laptop',experience:'2 Year' },
+    { id: '2', name: 'Mobile',experience:'5 Year' },
+    { id: '3', name: 'LCD',experience:'1 Year' },
+    { id: '4', name: 'Charger',experience:'7 Year' },
+    { id: '5', name: 'Remote',experience:'10 Year' },
+    { id: '6', name: 'Helmet',experience:'4 Year' },
+    { id: '7', name: 'Bag',experience:'3 Year' },
+    // 'Laptop','Mobile','LCD','Charger','Remote'  
+
+  ]
+
     constructor(protected router: Router)
     { 
     }
-
-
-    // dynamicFilterArray:any= [
-    //   {
-    //     type: 'select',
-    //     label: 'Condition',
-    //     placeholder: 'Condition',
-    //     options: [
-    //       { id: 'new', name: 'New' },
-    //       { id: 'old', name: 'Old' },
-    //       { id: 'new', name: 'New' },
-    //       { id: 'old', name: 'Old' },
-    //       { id: 'new', name: 'New' },
-    //       { id: 'old', name: 'Old' },
-    //       { id: 'new', name: 'New' },
-    //       { id: 'old', name: 'Old' },
-    //       { id: 'new', name: 'New' },
-    //       { id: 'old', name: 'Old' },
-    //       { id: 'new', name: 'New' },
-    //       { id: 'old', name: 'Old' },
-          
-    //     ],
-    //     filteredOptions: [
-    //       { id: 'new', name: 'New' },
-    //       { id: 'old', name: 'Old' },
-    //       { id: 'new', name: 'New' },
-    //       { id: 'old', name: 'Old' },
-    //       { id: 'new', name: 'New' },
-    //       { id: 'old', name: 'Old' },
-    //       { id: 'new', name: 'New' },
-    //       { id: 'old', name: 'Old' },
-    //       { id: 'new', name: 'New' },
-    //       { id: 'old', name: 'Old' },
-    //       { id: 'new', name: 'New' },
-    //       { id: 'old', name: 'Old' },
-          
-    //     ],
-    //     key: 'condition',
-    //     value: null,
-    //   },
-    //     {
-    //       type: 'select-dependent',
-    //       label: 'Condition',
-    //       placeholder: 'Condition',
-    //       options: [
-    //         { id: 'new', name: 'New' },
-    //         { id: 'old', name: 'Old' },
-    //         { id: 'new', name: 'New' },
-    //         { id: 'old', name: 'Old' },
-    //         { id: 'new', name: 'New' },
-    //         { id: 'old', name: 'Old' },
-    //         { id: 'new', name: 'New' },
-    //         { id: 'old', name: 'Old' },
-    //         { id: 'new', name: 'New' },
-    //         { id: 'old', name: 'Old' },
-    //         { id: 'new', name: 'New' },
-    //         { id: 'old', name: 'Old' },
-            
-    //       ],
-    //       filteredOptions: [
-    //         { id: 'new', name: 'New' },
-    //         { id: 'old', name: 'Old' },
-    //         { id: 'new', name: 'New' },
-    //         { id: 'old', name: 'Old' },
-    //         { id: 'new', name: 'New' },
-    //         { id: 'old', name: 'Old' },
-    //         { id: 'new', name: 'New' },
-    //         { id: 'old', name: 'Old' },
-    //         { id: 'new', name: 'New' },
-    //         { id: 'old', name: 'Old' },
-    //         { id: 'new', name: 'New' },
-    //         { id: 'old', name: 'Old' },
-            
-    //       ],
-    //       key: 'condition',
-    //       value: null,
-    //     },
-    //     {
-    //       type: 'multi-select-dependent',
-    //       label: 'Model',
-    //       placeholder: 'Model',
-    //       options: [
-
-    //         { id: 'new', name: 'New' },
-    //         { id: 'old', name: 'Old' },
-
-    //       ],
-    //       filteredOptions: [
-
-    //         { id: 'new', name: 'New' },
-    //         { id: 'old', name: 'Old' },
-
-    //       ],
-    //       key: 'model',
-    //       value: null,
-    //     },
-
-    //   ];
 
 
 
