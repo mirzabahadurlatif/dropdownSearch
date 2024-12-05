@@ -14,6 +14,17 @@
   font-size: 14px;
   color: #333;
 }
+.list-view{
+  display: flex; 
+  justify-content: space-between;
+  padding: 5px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.list-view:hover{
+  background-color: #F1F1F1;
+}
 
 .selector-dropdown {
   background: white;

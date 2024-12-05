@@ -7,11 +7,14 @@ import {MatListModule} from '@angular/material/list';
 import {MatButtonModule} from '@angular/material/button';
 import { DataService } from '../data.service';
 import { HttpClientModule } from '@angular/common/http';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+
+import { debug } from 'node:console';
 
 @Component({
   selector: 'app-new-search',
   standalone: true,
-  imports: [CommonModule, FormsModule,MatListModule,MatButtonModule, HttpClientModule],
+  imports: [CommonModule,MatCheckboxModule,FormsModule,MatListModule,MatButtonModule, HttpClientModule],
   templateUrl: './new-search.component.html',
   styleUrl: './new-search.component.css'
 })
@@ -53,6 +56,7 @@ export class NewSearchComponent {
 
   }
   onListClick(id:any,indx:number){
+    
     if(this.dataType=='object'){
     this.checkboxArray.forEach((element,index) => {
       if(element.element.id==id){
@@ -60,13 +64,10 @@ export class NewSearchComponent {
       }
     });
   }else{
-    // this.checkboxArray.forEach((element,index) => {
-    //   if(index==indx){
-    //     this.checkboxArray[index].flag=!this.checkboxArray[index].flag
-    //   }
-    // });
+
     this.checkboxArray[indx].flag=!this.checkboxArray[indx].flag
   }
+
   }
 
   toggleDropdown(triggerElement:HTMLElement) {
@@ -108,7 +109,7 @@ export class NewSearchComponent {
     });
   }
   else{
-    debugger
+    
     this.checkboxArray.forEach(element => {
       if(element.flag){
         this.selectedValue+=element.element+','
@@ -188,9 +189,20 @@ export class NewSearchComponent {
   }
   isSelected(dataItem:any,indx:number):boolean{
 
-    return this.dataType=='object'?this.checkboxArray.find((item)=>item.element.id==dataItem.id).flag:this.checkboxArray[indx].flag
+    if( this.dataType=='object'){
+      let findItem=this.checkboxArray.find((item)=>item.element.id==dataItem.id)
+      return findItem.flag
+
+    }else{
+
+      return this.checkboxArray[indx].flag
+
+    }
+  
   }
-  filterOptions(query: string) {  
+
+  filterOptions(query: string) { 
+    this.filterOption=[] 
     if(this.dataType=='object'){
     this.filterOption = this.options.filter((option:any) =>
       option[this.displayValue].toLowerCase().includes(query.toLowerCase()) 

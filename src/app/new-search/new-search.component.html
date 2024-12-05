@@ -35,13 +35,30 @@
             </div>
             <div class="selector-dropdown" *ngIf="selectType=='multi-select'" style="margin-left: 0px;max-height: 150px;min-height: 40px;">
 
-            <mat-selection-list  #opt>
+            <!-- <mat-selection-list  #opt>
                 
                 @for (option of filterOption; track $index) {
                 <a (click)="onListClick(option.id,$index)"><mat-list-option  [value]="dataType=='object'?option.id:$index" [selected]="isSelected(option,$index)">{{dataType=='object'?option[displayValue]:option}}</mat-list-option></a>  
                 }
                 
-            </mat-selection-list>
+            </mat-selection-list> -->
+
+         
+                @for (option of filterOption; track $index) {
+
+                    <a class="list-view" (click)="onListClick(option.id,$index)">
+
+                        <option style="color: black; font-size: 18px;font-family: Arial;" value="option.id">{{option[displayValue]}}</option>
+
+                        <section class="example-section">
+                            <mat-checkbox [checked]="isSelected(option,$index)" class="example-margin"></mat-checkbox>
+                        </section>
+
+                    </a>  
+                    
+                }
+            
+
             </div>
             
             <div *ngIf="filterOption.length === 0" class="no-results">
