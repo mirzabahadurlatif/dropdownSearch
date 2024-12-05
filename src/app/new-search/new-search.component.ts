@@ -75,6 +75,8 @@ export class NewSearchComponent {
       this.closeDropdown();
     } else {
 
+      if(this.selectType=='multi-select'){
+
       this.checkboxArray.forEach((element,index) => {
         this.checkboxArray[index].flag=false
       });
@@ -86,10 +88,13 @@ export class NewSearchComponent {
         //   if(item.element.name==element){
         //     this.checkboxArray[index].flag=true
         //   }
-        //  });
+        //  }); 
 
         });
       }
+    }else if(this.selectType=='single-select'){
+      
+    }
       this.openDropdown(triggerElement);
     }
   }
@@ -116,7 +121,9 @@ export class NewSearchComponent {
       }
     });
   }
-
+  if(this.selectedValue==''){
+    this.selectedValue='Select'
+  }
     this.seletedArray=this.selectedValue?.split(',')
     console.log("sleted ARRaay",this.seletedArray)
     this.closeDropdown();

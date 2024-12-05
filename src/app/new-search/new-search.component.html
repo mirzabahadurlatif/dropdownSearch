@@ -29,7 +29,7 @@
             (ngModelChange)="filterOptions(searchQuery)" />
             
             <div *ngIf="selectType=='single-select'">
-            <div  class="selector-option" *ngFor="let option of filterOption" (click)="selectOption(option[displayValue])">
+            <div [ngClass]="{'text-blue-600':option[displayValue]==selectedValue}"  class="selector-option" *ngFor="let option of filterOption" (click)="selectOption(option[displayValue])">
                 {{ option[displayValue] }}
             </div>
             </div>
